@@ -1,0 +1,49 @@
+import requests
+
+base_url = 'https://reqres.in/api'
+
+def list_users():
+    response = requests.get(f'{base_url}/users')
+    if response.status_code == 200:
+        print('List Users:')
+        print(response.json())
+    else:
+        print('Failed to retrieve users:', response.status_code)
+
+def get_user(user_id):
+    response = requests.get(f'{base_url}/users/{user_id}')
+    if response.status_code == 200:
+        print(f'User {user_id}:')
+        print(response.json())
+    else:
+        print(f'Failed to retrieve user {user_id}:', response.status_code)
+
+def create_user(user_data):
+    response = requests.post(f'{base_url}/users', json=user_data)
+    if response.status_code == 201:
+        print('User created:')
+        print(response.json())
+    else:
+        print('Failed to create user:', response.status_code)
+
+def update_user(user_id, user_data):
+    response = requests.put(f'{base_url}/users/{user_id}', json=user_data)
+    if response.status_code == 200:
+        print(f'User {user_id} updated:')
+        print(response.json())
+    else:
+        print(f'Failed to update user {user_id}:', response.status_code)
+
+def delete_user(user_id):
+    response = requests.delete(f'{base_url}/users/{user_id}')
+    if response.status_code == 204:
+        print(f'User {user_id} deleted successfully')
+    else:
+        print(f'Failed to delete user {user_id}:', response.status_code)
+
+# Example usage
+list_users()
+get_user(2)
+create_user({"name": "John", "job": "Developer"})
+update_user(2, {"name": "Jane", "job": "Manager"})
+delete_user(2)
